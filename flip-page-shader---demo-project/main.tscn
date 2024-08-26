@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://26cffhtx2g0w"]
+
+[ext_resource type="Texture2D" uid="uid://lptpy7g73sx5" path="res://page_blank.png" id="1_6j115"]
+[ext_resource type="Shader" path="res://flip.gdshader" id="2_colyk"]
+[ext_resource type="Texture2D" uid="uid://c8rg5toavs0q8" path="res://page_cover.png" id="2_o4shk"]
+[ext_resource type="Script" path="res://page_cover.gd" id="4_egsn4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1dh1"]
+shader = ExtResource("2_colyk")
+shader_parameter/scale = null
+shader_parameter/mouse_pos = Vector2(-1, -1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nm0us"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ojxby"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Book" type="Node" parent="."]
+
+[node name="PageBlank" type="Sprite2D" parent="Book"]
+position = Vector2(288, 360.5)
+texture = ExtResource("1_6j115")
+
+[node name="PageCover" type="Sprite2D" parent="Book"]
+material = SubResource("ShaderMaterial_s1dh1")
+position = Vector2(288, 360.5)
+texture = ExtResource("2_o4shk")
+flip_h = true
+script = ExtResource("4_egsn4")
+
+[node name="next_page" type="Button" parent="."]
+offset_left = 750.0
+offset_top = 266.0
+offset_right = 837.0
+offset_bottom = 297.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_nm0us")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ojxby")
+text = "Next Page"
+
+[node name="previous_page" type="Button" parent="."]
+offset_left = 750.0
+offset_top = 313.0
+offset_right = 837.0
+offset_bottom = 344.0
+theme_override_styles/focus = SubResource("StyleBoxFlat_nm0us")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ojxby")
+text = "Previous
+Page"
+
+[connection signal="pressed" from="next_page" to="Book/PageCover" method="_on_next_page_pressed"]
+[connection signal="pressed" from="previous_page" to="Book/PageCover" method="_on_previous_page_pressed"]
